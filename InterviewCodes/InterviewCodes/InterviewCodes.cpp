@@ -1,4 +1,9 @@
-#include "stdafx.h"
+#include <stdio.h>
+#include <tchar.h>
+
+short endian = 1;
+#define LITTLE_ENDIAN (*(char *)(&endian))
+#define BIG_ENDIAN (*((char *)&endian + sizeof(short) - 1))
 
 // Rotate n * n matrix clockwise
 extern void rotateM(int *matrix, int n);
@@ -8,11 +13,13 @@ extern void reverse(char *str);
 // test case
 static void testRotateM();
 static void testReverse();
+static void testEndian();
 
 int _tmain(int argc, _TCHAR* argv[])
 {
 	testRotateM();
 	testReverse();
+	testEndian();
 	return 0;
 }
 
@@ -62,4 +69,12 @@ void testReverse()
 	printf("%s\n", str4);
 	reverse(str4);
 	printf("%s\n", str4);
+}
+
+void testEndian()
+{
+	if (LITTLE_ENDIAN)
+		printf("Littel Endian \n");
+	if (BIG_ENDIAN)
+		printf("Big Endian \n");
 }
